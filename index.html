@@ -1,1 +1,48 @@
-hola
+<div id="countup">
+  Son:
+  <p id="days">00</p>
+  <p class="timeRefDays">days</p>
+  <p id="hours">00</p>
+  <p class="timeRefHours">hours</p>
+  <p id="minutes">00</p>
+  <p class="timeRefMinutes">minutes</p>
+  <p id="seconds">00</p>
+  <p class="timeRefSeconds">second</p>
+</div>
+<style>
+#countup p {
+display: inline-block;
+padding: 5px;
+background: #FFA500;
+margin: 0 0 20px;
+}
+</style>
+<script>
+
+/*
+* Basic Count Up from Date and Time
+* Author: @mrwigster / trulycode.com
+*/
+window.onload=function() {
+  // Month,Day,Year,Hour,Minute,Second
+  upTime('oct,10,2017,13:15:00'); // ****** Change this line!
+}
+function upTime(countTo) {
+  now = new Date();
+  countTo = new Date(countTo);
+  difference = (now-countTo);
+
+  days=Math.floor(difference/(60*60*1000*24)*1);
+  hours=Math.floor((difference%(60*60*1000*24))/(60*60*1000)*1);
+  mins=Math.floor(((difference%(60*60*1000*24))%(60*60*1000))/(60*1000)*1);
+  secs=Math.floor((((difference%(60*60*1000*24))%(60*60*1000))%(60*1000))/1000*1);
+
+  document.getElementById('days').firstChild.nodeValue = days;
+  document.getElementById('hours').firstChild.nodeValue = hours;
+  document.getElementById('minutes').firstChild.nodeValue = mins;
+  document.getElementById('seconds').firstChild.nodeValue = secs;
+
+  clearTimeout(upTime.to);
+  upTime.to=setTimeout(function(){ upTime(countTo); },1000);
+}
+</script>
